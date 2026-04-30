@@ -8,6 +8,7 @@ import cookieParser from "cookie-parser";
 import { createServer } from "http";
 import { Server } from "socket.io";
 import authRoutes from "./routes/auth.routes.js";
+import workspaceRoutes from "./routes/workspace.routes.js";
 
 // Create the Express app
 const app = express();
@@ -51,6 +52,7 @@ app.use(cookieParser());
 //    login    is at POST /api/auth/login
 //    etc.
 app.use("/api/auth", authRoutes);
+app.use("/api/workspaces", workspaceRoutes);
 
 // ─── Socket.io ────────────────────────────────────────────────────────────────
 // When a client connects via WebSocket
