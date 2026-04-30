@@ -1,0 +1,23 @@
+# Never commit installed packages — they're huge and reproducible with "npm install"
+node_modules
+
+# Never commit secret environment variables (passwords, API keys, etc.)
+.env
+.env.local
+.env.production
+
+# Next.js build output — gets regenerated on every build
+.next
+
+# Backend build output
+dist
+
+# Turborepo cache files
+.turbo
+
+# OS junk files
+.DS_Store
+Thumbs.db
+
+# Editor settings that are personal to you
+.vscode
