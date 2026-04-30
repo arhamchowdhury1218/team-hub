@@ -7,6 +7,7 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import { createServer } from "http";
 import { Server } from "socket.io";
+import authRoutes from "./routes/auth.routes.js";
 
 // Create the Express app
 const app = express();
@@ -44,8 +45,12 @@ app.use(express.json());
 app.use(cookieParser());
 
 // ─── Routes ───────────────────────────────────────────────────────────────────
-// We will import and register all routes here as we build them
-// Example: app.use('/api/auth', authRouter)
+
+// Mount routes — all auth routes are prefixed with /api/auth
+// So register is at POST /api/auth/register
+//    login    is at POST /api/auth/login
+//    etc.
+app.use("/api/auth", authRoutes);
 
 // ─── Socket.io ────────────────────────────────────────────────────────────────
 // When a client connects via WebSocket
