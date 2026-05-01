@@ -9,6 +9,7 @@ import { createServer } from "http";
 import { Server } from "socket.io";
 import authRoutes from "./routes/auth.routes.js";
 import workspaceRoutes from "./routes/workspace.routes.js";
+import goalRoutes from "./routes/goal.routes.js";
 
 // Create the Express app
 const app = express();
@@ -53,6 +54,7 @@ app.use(cookieParser());
 //    etc.
 app.use("/api/auth", authRoutes);
 app.use("/api/workspaces", workspaceRoutes);
+app.use("/api/workspaces/:workspaceId/goals", goalRoutes);
 
 // ─── Socket.io ────────────────────────────────────────────────────────────────
 // When a client connects via WebSocket
