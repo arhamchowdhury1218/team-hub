@@ -1,5 +1,5 @@
 import { prisma } from "../lib/prisma.js";
-
+import { io } from "../index.js";
 // ─── Helper: check membership ─────────────────────────────────────────────────
 const getMembership = async (userId, workspaceId) => {
   return prisma.workspaceMember.findUnique({
@@ -49,7 +49,7 @@ export const createAnnouncement = async (req, res) => {
         workspaceId,
       },
     });
-
+    io.to(workspaceId).emit("announcement:created", { announcement });
     res.status(201).json({ message: "Announcement posted.", announcement });
   } catch (error) {
     console.error("Create announcement error:", error);
@@ -118,7 +118,7 @@ export const updateAnnouncement = async (req, res) => {
       where: { id: announcementId },
       data: updateData,
     });
-
+    io.to(workspaceId).emit("announcement:updated", { announcement });
     res.json({ message: "Announcement updated.", announcement });
   } catch (error) {
     console.error("Update announcement error:", error);
@@ -142,7 +142,7 @@ export const deleteAnnouncement = async (req, res) => {
     }
 
     await prisma.announcement.delete({ where: { id: announcementId } });
-
+    io.to(workspaceId).emit("announcement:deleted", { announcementId });
     res.json({ message: "Announcement deleted." });
   } catch (error) {
     console.error("Delete announcement error:", error);

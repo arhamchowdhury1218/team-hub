@@ -1,5 +1,5 @@
 import { prisma } from "../lib/prisma.js";
-
+import { io } from "../index.js";
 // ─── Helper: check membership ─────────────────────────────────────────────────
 const getMembership = async (userId, workspaceId) => {
   return prisma.workspaceMember.findUnique({
@@ -59,6 +59,7 @@ export const createActionItem = async (req, res) => {
     res.status(201).json({ message: "Action item created.", actionItem });
   } catch (error) {
     console.error("Create action item error:", error);
+    io.to(workspaceId).emit("action_item:created", { actionItem });
     res.status(500).json({ message: "Something went wrong." });
   }
 };
@@ -148,7 +149,7 @@ export const updateActionItem = async (req, res) => {
         },
       },
     });
-
+    io.to(workspaceId).emit("action_item:updated", { actionItem });
     res.json({ message: "Action item updated.", actionItem });
   } catch (error) {
     console.error("Update action item error:", error);
@@ -171,7 +172,7 @@ export const deleteActionItem = async (req, res) => {
     }
 
     await prisma.actionItem.delete({ where: { id: itemId } });
-
+    io.to(workspaceId).emit("action_item:deleted", { itemId });
     res.json({ message: "Action item deleted." });
   } catch (error) {
     console.error("Delete action item error:", error);
