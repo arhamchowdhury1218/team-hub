@@ -100,6 +100,7 @@ import workspaceRoutes from "./routes/workspace.routes.js";
 import goalRoutes from "./routes/goal.routes.js";
 import announcementRoutes from "./routes/announcement.routes.js";
 import actionItemRoutes from "./routes/actionItem.routes.js";
+import analyticsRoutes from "./routes/analytics.routes.js";
 
 const app = express();
 const httpServer = createServer(app);
@@ -127,6 +128,7 @@ app.use("/api/workspaces", workspaceRoutes);
 app.use("/api/workspaces/:workspaceId/goals", goalRoutes);
 app.use("/api/workspaces/:workspaceId/announcements", announcementRoutes);
 app.use("/api/workspaces/:workspaceId/action-items", actionItemRoutes);
+app.use("/api/workspaces/:workspaceId/analytics", analyticsRoutes);
 
 // ─── Health check ─────────────────────────────────────────────────────────────
 app.get("/health", (req, res) => {

@@ -6,7 +6,6 @@ import { useWorkspaceStore } from "@/store/workspace.store";
 import { useActionItemStore } from "@/store/actionItem.store";
 import { useAnnouncementStore } from "@/store/announcement.store";
 import socket from "@/lib/socket";
-import { SocketProvider } from "@/components/SocketProvider";
 import { usePresenceStore } from "@/store/presence.store";
 
 export function SocketProvider({ children }) {
